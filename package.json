@@ -1,7 +1,7 @@
 {
-  "name": "dev1",
+  "name": "websocks",
   "version": "0.0.1",
-  "description": "Just playing with socket.io",
+  "description": "Just playing with websockets and crypto",
   "main": "server.js",
   "dependencies": {
     "socket.io": "^1.3.5",
@@ -13,8 +13,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "forever -c ./node-debug server.js",
-    "postinstall": "ln -s node_modules/node-inspector/bin/node-debug.js node-debug;ln -s node_modules/forever/bin/forever ."
+    "start": "node_modules/forever/bin/forever -c node_modules/node-inspector/bin/node-debug.js server.js"
   },
   "keywords": [
     "websockets"
