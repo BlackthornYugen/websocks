@@ -1,0 +1,9 @@
+{
+  "cli": true,
+  "debug-brk": false, // Use true to start app.js paused
+  "web-port": 49059,
+  "web-host": "0.0.0.0",
+  "debug-port": 49060,
+  "save-live-edit": false,
+  "hidden": ["node_modules/"]
+}
