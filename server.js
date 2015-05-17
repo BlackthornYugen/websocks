@@ -15,16 +15,16 @@ var players = [], // I say players because I plan on making this into a small ga
     events = 0; // Keep track of events
  
 // Do this each time a client connects //
-io.on('connection', function(client){
+io.on('connection', function(client) {
     util.log( "New Connection!"
 	  + "\nClient ID: "
 	  + client.id 
 	  + "\nClient IP: "
-	  + client.conn.remoteAddress 
+	  + ipFromConn(client.conn)
 	  + "\nFrom:      " 
-	  + client.conn.request.headers.referer
+	  + client.conn.request.headers['referer']
 	  + "\nHash:      " 
-	  + getIPHash(client.conn.remoteAddress)
+	  + getIPHash(ipFromConn(client.conn))
 	  + "\n");
     players.push(client);
     client.on("disconnect", onClientDisconnect);
@@ -111,7 +111,7 @@ function getPlayerHash(playerId){
 	var ns = io.of("/");
 	var player = ns.connected[playerId];
 	if(player){
-		hashObject.hash = getIPHash(player.conn.remoteAddress);
+		hashObject.hash = getIPHash(ipFromConn(player.conn));
 		hashObject.identCode = player.id;
 		hashObject.referer = player.conn.request.headers.referer;
 	} else {
@@ -128,6 +128,14 @@ function getIPHash(ip){
 		util.log(e);
 	}
 	return 999;
+}
+
+function ipFromConn(conn) {
+	var realIp = conn.request.headers['x-real-ip'];
+	if (realIp) {
+		return realIp;
+	}
+	return conn.remoteAddress.toLowerCase().replace('::ffff:', '');
 }
 
 io.listen(port);
