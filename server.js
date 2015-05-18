@@ -6,7 +6,7 @@ Ping & IP Hashing w/ Websockets
 */
 var util = require("util"),
     io = require("socket.io")(),
-	port = process.env.PORT || 8000;
+    port = process.env.PORT || 8000;
 	
 var AES = require("crypto-js/aes");
 var SHA256 = require("crypto-js/sha256");
@@ -139,3 +139,4 @@ function ipFromConn(conn) {
 }
 
 io.listen(port);
+console.info("Node listening on port %d", port);
